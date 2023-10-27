@@ -79,6 +79,8 @@ Scopo: L'utente può registrare un nuovo account nel sistema.\
      - Dopo la registrazione, l'utente può effettuare il login con le credenziali create.
     - L'utente può anche recuperare la password dimenticata tramite un'apposita funzionalità.
 
+    <img src="DocAssets/user-registration-diagram.png"  width="30%" height="30%">
+
 3. **Prenotazione di un Libro**\
 Attori Principali: Utente\
 Scopo: L'utente può prenotare un libro disponibile nella biblioteca.\
