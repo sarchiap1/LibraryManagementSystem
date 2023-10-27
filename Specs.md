@@ -8,52 +8,50 @@ Il progetto mira a sviluppare un'applicazione Java per la gestione di una biblio
 
 ## Requisiti Funzionali
 
-1. **Autenticazione**
-    - Gli utenti devono essere in grado di registrare un account.
-    - Gli utenti registrati devono essere in grado di effettuare il login.
-    - Gli utenti possono reimpostare la password dimenticata.
+**Autenticazione**\
+Gli utenti devono essere in grado di registrare un account.\
+Gli utenti registrati devono essere in grado di effettuare il login.\
+Gli utenti possono reimpostare la password dimenticata.
 
-2. **Ricerca Libri**
-    - Gli utenti devono essere in grado di cercare libri per titolo, autore o genere.
-    - I risultati della ricerca devono essere visualizzati in modo chiaro.
+**Ricerca Libri**\
+Gli utenti devono essere in grado di cercare libri per titolo, autore o genere.\
+I risultati della ricerca devono essere visualizzati in modo chiaro.
 
-3. **Prenotazione**
-    - Gli utenti devono essere in grado di prenotare libri disponibili.
-    - Gli utenti possono visualizzare le prenotazioni attive e cancellarle.
+**Prenotazione**\
+Gli utenti devono essere in grado di prenotare libri disponibili.\
+Gli utenti possono visualizzare le prenotazioni attive e cancellarle.
 
-4. **Gestione Libri**
-    - I bibliotecari devono essere in grado di aggiungere nuovi libri all'inventario.
-    - I bibliotecari possono segnare i libri come restituiti.
-    - I bibliotecari possono visualizzare le prenotazioni dei libri.
+**Gestione Libri**\
+I bibliotecari devono essere in grado di aggiungere nuovi libri all'inventario.\
+I bibliotecari possono segnare i libri come restituiti.\
+I bibliotecari possono visualizzare le prenotazioni dei libri.
 
-5. **Account Utente**
-    - Gli utenti possono aggiornare le proprie informazioni personali.
-    - Gli utenti possono visualizzare lo storico delle prenotazioni.
+**Account Utente**\
+Gli utenti possono aggiornare le proprie informazioni personali.\
+Gli utenti possono visualizzare lo storico delle prenotazioni.
 
-6. **Interfaccia Utente**
-    - L'interfaccia utente deve essere intuitiva ed esteticamente gradevole.
-    - Deve essere possibile navigare facilmente tra le diverse funzionalità.
+**Interfaccia Utente**\
+L'interfaccia utente deve essere intuitiva ed esteticamente gradevole.\
+Deve essere possibile navigare facilmente tra le diverse funzionalità.
 
 ## Requisiti Non Funzionali
+**Performance**\
+L'applicazione deve rispondere rapidamente alle richieste degli utenti.\
+Le operazioni di ricerca devono essere veloci anche con un grande numero di libri.
 
-1. **Performance**
-    - L'applicazione deve rispondere rapidamente alle richieste degli utenti.
-    - Le operazioni di ricerca devono essere veloci anche con un grande numero di libri.
+**Sicurezza**\
+Le informazioni degli utenti devono essere archiviate in modo sicuro.\
+L'accesso alle funzionalità di amministrazione deve essere limitato ai bibliotecari autorizzati.
 
-2. **Sicurezza**
-    - Le informazioni degli utenti devono essere archiviate in modo sicuro.
-    - L'accesso alle funzionalità di amministrazione deve essere limitato ai bibliotecari autorizzati.
-
-3. **Manutenibilità**
-    - Il codice sorgente deve essere ben strutturato e documentato.
-    - Le modifiche future devono essere facili da implementare.
+**Manutenibilità**\
+Il codice sorgente deve essere ben strutturato e documentato.\
+Le modifiche future devono essere facili da implementare.
 
 ## Tecnologie e Strumenti
-
-- Linguaggio di programmazione: Java
-- Database: SQLite (opzionale)
-- IDE: Eclipse, NetBeans, IntelliJ IDEA o simili
-- Strumenti di controllo di versione: Git
+Linguaggio di programmazione: Java\
+Database: SQLite
+IDE: Eclipse, NetBeans, IntelliJ IDEA o simili\
+Strumenti di controllo di versione: Git
 
 ## Casi d'Uso
 1. **Registrazione utente**\
