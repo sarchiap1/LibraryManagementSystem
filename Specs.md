@@ -56,10 +56,10 @@ Il progetto mira a sviluppare un'applicazione Java per la gestione di una biblio
 - Strumenti di controllo di versione: Git
 
 ## Casi d'Uso
-1. **Registrazione utente**
-Attori Principali: Utente
-Scopo: L'utente può registrare un nuovo account nel sistema.
-Flusso Principale:
+1. **Registrazione utente**\
+Attori Principali: Utente\
+Scopo: L'utente può registrare un nuovo account nel sistema.\
+    Flusso Principale:
     - L'utente avvia il processo di registrazione.
     - Il sistema richiede all'utente di inserire le informazioni necessarie per la registrazione, come nome, cognome, indirizzo email e password.
     - L'utente inserisce le informazioni richieste.
@@ -79,9 +79,9 @@ Flusso Principale:
      - Dopo la registrazione, l'utente può effettuare il login con le credenziali create.
     - L'utente può anche recuperare la password dimenticata tramite un'apposita funzionalità.
 
-2. **Prenotazione di un Libro**
-Attori Principali: Utente
-Scopo: L'utente può prenotare un libro disponibile nella biblioteca.
+3. **Prenotazione di un Libro**\
+Attori Principali: Utente\
+Scopo: L'utente può prenotare un libro disponibile nella biblioteca.\
 Flusso Principale:
     - L'utente effettua il login nel sistema.
     - L'utente avvia la ricerca di un libro utilizzando il titolo, l'autore o il genere.
