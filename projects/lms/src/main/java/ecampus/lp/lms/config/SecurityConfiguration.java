@@ -36,11 +36,11 @@ public class SecurityConfiguration {
         authenticationManagerBuilder.authenticationProvider(authProvider);
         return authenticationManagerBuilder.build();
     }
-
+/* */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
-        http.csrf(Customizer.withDefaults())
+        http
                 .authorizeHttpRequests((authorize) ->
                         authorize.anyRequest().authenticated()
                 ).formLogin(
