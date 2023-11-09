@@ -62,6 +62,8 @@ public class SecurityConfiguration {
             .anyRequest().authenticated()
         );
     
+        // https://docs.spring.io/spring-security/reference/reactive/exploits/csrf.html
+        http.csrf(csrf->csrf.disable());
 
         return http.build();
     }
