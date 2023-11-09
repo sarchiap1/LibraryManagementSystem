@@ -1,7 +1,6 @@
 package ecampus.lp.lms.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.annotation.PersistenceCreator;
 
 import lombok.Getter;
