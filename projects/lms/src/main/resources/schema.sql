@@ -5,3 +5,6 @@ CREATE TABLE IF NOT EXISTS `user` (
      `email`        VARCHAR(255) NOT NULL,
      `password`     VARCHAR(255) NOT NULL
 );
+
+ALTER TABLE IF EXISTS `user`
+    ADD CONSTRAINT IF NOT EXISTS uq_email UNIQUE (email)
