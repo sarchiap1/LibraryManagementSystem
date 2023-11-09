@@ -50,8 +50,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request){
-        var user = authService.login(request.email(), request.password());
+        var token = authService.login(request.email(), request.password());
 
-        return new LoginResponse(user.getId(),user.getFirstName(), user.getLastName(), user.getEmail());
+        return new LoginResponse(token.getToken());
     }
 }
