@@ -39,7 +39,7 @@ public class SecurityConfiguration {
 /* */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        
+        /* 
         http
                 .authorizeHttpRequests((authorize) ->
                         authorize.anyRequest().authenticated()
@@ -54,10 +54,19 @@ public class SecurityConfiguration {
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()
                 );
-        
+        */
+        // https://docs.spring.io/spring-security/reference/6.0-SNAPSHOT/servlet/authorization/authorize-http-requests.html
+        http
+        .authorizeHttpRequests((authorize) -> authorize
+            .requestMatchers("/api/**").permitAll() 
+            .anyRequest().authenticated()
+        );
+    
+
         return http.build();
     }
 
+    /* 
     @Bean
     public UserDetailsService userDetailsService(){
 
@@ -75,5 +84,5 @@ public class SecurityConfiguration {
 
         return new InMemoryUserDetailsManager(user, admin);
     }
-    
+    */
 }
