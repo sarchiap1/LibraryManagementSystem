@@ -15,17 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import ecampus.lp.lms.repository.IUserRepository;
+import ecampus.lp.lms.service.AuthService;
 
 @RestController
 @RequestMapping(value="/api")
 public class AuthController {
 
-    private final IUserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final AuthService authService;
 
     public AuthController(IUserRepository userRepository, PasswordEncoder passwordEncoder){
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.authService = new AuthService(userRepository, passwordEncoder);
     }
 
     @GetMapping(value="/echo")
@@ -38,13 +37,21 @@ public class AuthController {
         if(!Objects.equals(request.password(), request.passwordConfirm()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "password do not match");
 
-        var user = userRepository.save(
-            User.of(request.firstName(), 
+        var user = authService.register(
+                    request.firstName(), 
                     request.lastName(),
                     request.email(),
-                    passwordEncoder.encode(request.password()))
+                    request.password(),
+                    request.passwordConfirm() 
         );
 
        return new UserRegisterResponse(user.getId(),user.getFirstName(),user.getLastName(),user.getEmail());
+    }
+
+    @PostMapping("/login")
+    public LoginResponse login(@RequestBody LoginRequest request){
+        var user = authService.login(request.email(), request.password());
+
+        return new LoginResponse(user.getId(),user.getFirstName(), user.getLastName(), user.getEmail());
     }
 }

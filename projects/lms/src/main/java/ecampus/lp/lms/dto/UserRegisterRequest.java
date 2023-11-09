@@ -13,5 +13,5 @@ public record UserRegisterRequest(
         String lastName, 
         String email, 
         String password, 
-        @JsonProperty("passwordConfirm") String passwordConfirm){}
+        String passwordConfirm){}
     
