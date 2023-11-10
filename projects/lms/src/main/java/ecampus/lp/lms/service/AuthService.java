@@ -55,4 +55,8 @@ public class AuthService {
         // return 
         return Login.of(user.getId(), accessTokenSecret, refreshTokenSecret);
     }
+
+    public User getUserFromToken(String token){
+        return null;
+    }
 }

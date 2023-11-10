@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import ecampus.lp.lms.repository.IUserRepository;
 import ecampus.lp.lms.service.AuthService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
@@ -63,4 +64,11 @@ public class AuthController {
 
         return new LoginResponse(login.getAccessToken().getToken());
     }
+
+    @GetMapping(value="/user")
+    public UserResponse user(HttpServletRequest request){
+        System.out.println(request);
+        return null;
+    }
+
 }
