@@ -16,6 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import ecampus.lp.lms.repository.IUserRepository;
 import ecampus.lp.lms.service.AuthService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(value="/api")
@@ -24,7 +26,7 @@ public class AuthController {
     private final AuthService authService;
 
     public AuthController(IUserRepository userRepository, PasswordEncoder passwordEncoder){
-        this.authService = new AuthService(userRepository, passwordEncoder);
+        this.authService = new AuthService(userRepository, passwordEncoder,null,null);
     }
 
     @GetMapping(value="/echo")
@@ -49,9 +51,16 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest request){
-        var token = authService.login(request.email(), request.password());
+    public LoginResponse login(@RequestBody LoginRequest request, HttpServletResponse response){
+        var login = authService.login(request.email(), request.password());
 
-        return new LoginResponse(token.getToken());
+        Cookie cookie = new Cookie("refresh_token", login.getRefreshToken().getToken());
+        cookie.setMaxAge(3600);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/api");
+
+        response.addCookie(cookie);
+
+        return new LoginResponse(login.getAccessToken().getToken());
     }
 }

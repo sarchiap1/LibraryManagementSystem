@@ -3,10 +3,11 @@ package ecampus.lp.lms.service;
 import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import org.springframework.beans.factory.annotation.Value;
 
 import ecampus.lp.lms.model.User;
 import ecampus.lp.lms.repository.IUserRepository;
@@ -16,9 +17,20 @@ public class AuthService {
     private final IUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthService(IUserRepository userRepository, PasswordEncoder passwordEncoder){
+    private final String accessTokenSecret;
+    private final String refreshTokenSecret;
+
+    public AuthService(
+            IUserRepository userRepository, 
+            PasswordEncoder passwordEncoder,
+            @Value("${application.security.access-token-secret}") String accessTokenSecret,
+            @Value("${application.security.refresh-token-secret}") String refreshTokenSecret
+        ){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+
+        this.accessTokenSecret = accessTokenSecret;
+        this.refreshTokenSecret = refreshTokenSecret;
     }
 
     public User register(String firstName, String lastName, String email, String password, String passwordConfirm)
@@ -31,7 +43,7 @@ public class AuthService {
         );
     }
 
-    public Token login(String email, String password){
+    public Login login(String email, String password){
         // find user by email
         var user = userRepository.findByEmail(email)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid credentials"));
@@ -40,7 +52,7 @@ public class AuthService {
         if(!passwordEncoder.matches(password, user.getPassword())) // The encoder can generate different encoded of the same password so we need matches method
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid credentials");
 
-        // return user
-        return Token.of(user.getId(), 10L, "secretKey");
+        // return 
+        return Login.of(user.getId(), accessTokenSecret, refreshTokenSecret);
     }
 }
