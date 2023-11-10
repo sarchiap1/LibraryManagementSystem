@@ -11,12 +11,15 @@ import org.springframework.beans.factory.annotation.Value;
 
 import ecampus.lp.lms.model.User;
 import ecampus.lp.lms.repository.IUserRepository;
+import io.jsonwebtoken.Jwts;
+import lombok.Getter;
 
 @Service
 public class AuthService {
     private final IUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Getter
     private final String accessTokenSecret;
     private final String refreshTokenSecret;
 
@@ -54,9 +57,5 @@ public class AuthService {
 
         // return 
         return Login.of(user.getId(), accessTokenSecret, refreshTokenSecret);
-    }
-
-    public User getUserFromToken(String token){
-        return null;
     }
 }

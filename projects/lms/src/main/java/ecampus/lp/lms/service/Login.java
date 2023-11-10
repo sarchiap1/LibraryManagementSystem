@@ -2,6 +2,9 @@ package ecampus.lp.lms.service;
 
 import lombok.Getter;
 
+/**
+ * Responsibility to create and manage Token
+ */
 public class Login {
     @Getter
     private final Token accessToken;

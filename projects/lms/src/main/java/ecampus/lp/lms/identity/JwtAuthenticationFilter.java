@@ -2,7 +2,8 @@ package ecampus.lp.lms.identity;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import ecampus.lp.lms.service.AuthService;
+import ecampus.lp.lms.service.*;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,7 +31,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
             return;
         }   
 
-        request.setAttribute("user", authService.getUserFromToken(authorizationHeader.substring(7)));
+        var userId = Token.from(authorizationHeader.substring(7), authService.getAccessTokenSecret());
+
+        request.setAttribute("user", userId);
 
     }
 }

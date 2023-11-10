@@ -20,14 +20,23 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+
 @RestController
 @RequestMapping(value="/api")
 public class AuthController {
 
     private final AuthService authService;
 
-    public AuthController(IUserRepository userRepository, PasswordEncoder passwordEncoder){
-        this.authService = new AuthService(userRepository, passwordEncoder,null,null);
+    public AuthController(IUserRepository userRepository, PasswordEncoder passwordEncoder, Environment env){
+        var a = env.getProperty("application.security.access-token-secret");
+        var r = env.getProperty("application.security.refresh-token-secret");
+        this.authService = new AuthService(userRepository,
+                                             passwordEncoder,
+                                            a,
+                                            r );
     }
 
     @GetMapping(value="/echo")

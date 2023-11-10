@@ -5,11 +5,14 @@ import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.sql.Date;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.Jwts.SIG;
@@ -24,12 +27,13 @@ public class Token {
 
     private Token(String token)
     {
-
         this.token = token;
     }
 
     public static Token of(Long userId, Long validityInMinutes, String secretKey){
-        var key = Jwts.SIG.HS256.key().build();
+
+        var key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+
         var issueDate = Instant.now();
         var token = new Token(
             Jwts.builder()
@@ -41,5 +45,29 @@ public class Token {
         );
 
         return token;
+    }
+
+    public static Token of(String token){
+       return new Token(token);
+    }
+
+    public static Long from(String accesstoken, String secretKey){
+
+   var key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+
+        var payload = Jwts.parser().verifyWith(key)
+                    .build()
+                    .parse(accesstoken)
+                    .getPayload();
+
+        var claims = (Claims)payload;
+
+        for(var k:claims.keySet()){
+            var v = claims.get(k).toString();
+            System.out.println(k);
+            System.out.println(v);
+        }
+
+        return 0L;
     }
 }
