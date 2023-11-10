@@ -1,6 +1,7 @@
 package ecampus.lp.lms.service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,5 +58,11 @@ public class AuthService {
 
         // return 
         return Login.of(user.getId(), accessTokenSecret, refreshTokenSecret);
+    }
+
+    public Optional<User> GetUser(Long userId){
+        var user = userRepository.findById(userId);
+
+        return user;
     }
 }

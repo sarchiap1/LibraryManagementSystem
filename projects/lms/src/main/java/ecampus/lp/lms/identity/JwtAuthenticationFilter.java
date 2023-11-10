@@ -1,5 +1,7 @@
 package ecampus.lp.lms.identity;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import ecampus.lp.lms.service.*;
@@ -10,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.lang.String;
+import java.util.ArrayList;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
@@ -33,7 +36,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
         var userId = Token.from(authorizationHeader.substring(7), authService.getAccessTokenSecret());
 
-        request.setAttribute("user", userId);
+        request.setAttribute("user_id", userId);
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId,null,new ArrayList<>());
+
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        filterChain.doFilter(request, response);
 
     }
 }

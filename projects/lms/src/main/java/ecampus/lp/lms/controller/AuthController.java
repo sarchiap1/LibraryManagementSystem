@@ -20,6 +20,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -72,12 +73,23 @@ public class AuthController {
         response.addCookie(cookie);
 
         return new LoginResponse(login.getAccessToken().getToken());
+
+        //Authentication authentication = this.
     }
 
     @GetMapping(value="/user")
     public UserResponse user(HttpServletRequest request){
-        System.out.println(request);
-        return null;
+
+        //return new UserResponse(0L, "non capisco", "non capisco", "non capisco");
+        
+        var userId = (Long)request.getAttribute("user_id");
+
+        var user = authService.GetUser(userId);
+
+        if(user.isEmpty())
+             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot find user");
+
+        return new UserResponse(user.get().getId(), user.get().getFirstName(), user.get().getLastName(), user.get().getEmail());
     }
 
 }

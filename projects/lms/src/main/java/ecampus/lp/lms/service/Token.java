@@ -52,8 +52,7 @@ public class Token {
     }
 
     public static Long from(String accesstoken, String secretKey){
-
-   var key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+        var key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 
         var payload = Jwts.parser().verifyWith(key)
                     .build()
@@ -62,12 +61,8 @@ public class Token {
 
         var claims = (Claims)payload;
 
-        for(var k:claims.keySet()){
-            var v = claims.get(k).toString();
-            System.out.println(k);
-            System.out.println(v);
-        }
+        var c = (Number)claims.get("user_id");
 
-        return 0L;
+        return Long.valueOf(c.longValue());
     }
 }
