@@ -2,11 +2,18 @@ package ecampus.lp.lms.service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Base64;
+
+import javax.crypto.SecretKey;
+
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.sql.Date;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 import lombok.val;
 
@@ -21,13 +28,16 @@ public class Token {
     }
 
     public static Token of(Long userId, Long validityInMinutes, String secretKey){
+        var key = Jwts.SIG.HS256.key().build();
         var issueDate = Instant.now();
-        var token = Jwts.builder()
+        var token = new Token(
+            Jwts.builder()
             .claim("user_id",userId)
             .issuedAt(Date.from(issueDate))
             .expiration(Date.from(issueDate.plus(validityInMinutes, ChronoUnit.MINUTES)))
-            .signWith(null)
-            .compact();
+            .signWith(key)
+            .compact()
+        );
 
         return token;
     }

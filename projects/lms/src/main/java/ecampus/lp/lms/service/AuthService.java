@@ -31,7 +31,7 @@ public class AuthService {
         );
     }
 
-    public User login(String email, String password){
+    public Token login(String email, String password){
         // find user by email
         var user = userRepository.findByEmail(email)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid credentials"));
@@ -41,6 +41,6 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid credentials");
 
         // return user
-        return user;
+        return Token.of(user.getId(), 10L, "secretKey");
     }
 }
