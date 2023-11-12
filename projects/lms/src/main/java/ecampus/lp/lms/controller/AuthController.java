@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -92,4 +93,16 @@ public class AuthController {
         return new UserResponse(user.get().getId(), user.get().getFirstName(), user.get().getLastName(), user.get().getEmail());
     }
 
+    @PostMapping(value = "/refresh")
+    public RefreshResponse refresh(@CookieValue("refresh_token") String refreshToken)
+    {
+        var t = authService
+                    .refreshAccess(refreshToken)
+                    .getRefreshToken()
+                    .getToken();
+
+        var result = new RefreshResponse(t);
+        
+        return result;
+    }
 }

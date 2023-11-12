@@ -54,6 +54,7 @@ public class SecurityConfiguration {
         .authorizeHttpRequests((auth) -> auth
             .requestMatchers("/api/register").permitAll() 
             .requestMatchers("/api/login").permitAll()
+            .requestMatchers("/api/refresh").permitAll()
             .requestMatchers("/api/echo").permitAll()
             .anyRequest()
             .authenticated()

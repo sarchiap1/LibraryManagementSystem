@@ -65,4 +65,12 @@ public class AuthService {
 
         return user;
     }
+
+    public Login refreshAccess(String refreshToken){
+        var userId = Token.from(refreshToken, refreshTokenSecret);
+
+        var login = Login.of(userId,accessTokenSecret, Token.of(refreshToken));
+
+        return login;
+    }
 }
