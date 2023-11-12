@@ -21,9 +21,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 
 @RestController
@@ -98,11 +95,23 @@ public class AuthController {
     {
         var t = authService
                     .refreshAccess(refreshToken)
-                    .getRefreshToken()
+                    .getAccessToken()
                     .getToken();
 
         var result = new RefreshResponse(t);
-        
+
         return result;
+    }
+
+    @PostMapping("/logout")
+    public LogoutResponse logout(HttpServletResponse response)
+    {
+        Cookie cookie = new Cookie("refresh_token", null);
+        cookie.setMaxAge(0);
+        cookie.setHttpOnly(true);
+
+        response.addCookie(cookie);
+
+        return new LogoutResponse("success");
     }
 }

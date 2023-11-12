@@ -1,8 +1,5 @@
 package ecampus.lp.lms.service;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
-
 import lombok.Getter;
 
 /**

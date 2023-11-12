@@ -3,11 +3,13 @@ package ecampus.lp.lms.identity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.WebUtils;
 
 import ecampus.lp.lms.service.*;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -26,15 +28,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, java.io.IOException {
-        
+
         String authorizationHeader = request.getHeader("Authorization");
 
         if(authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){
             filterChain.doFilter(request, response);
             return;
-        }   
+        }
 
-        var userId = Token.from(authorizationHeader.substring(7), authService.getAccessTokenSecret());
+        /* 
+        String accessTokenFromCookie = null;
+        var cookie = WebUtils.getCookie(request, "refresh_token");
+        if(cookie != null)
+        {
+            var refreshToken = cookie.getValue();
+            accessTokenFromCookie = authService
+                    .refreshAccess(refreshToken)
+                    .getRefreshToken()
+                    .getToken();
+        }*/
+
+        var accessToken = authorizationHeader.substring(7);
+
+        var userId = Token.from(accessToken, authService.getAccessTokenSecret());
 
         request.setAttribute("user_id", userId);
 
@@ -42,7 +58,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         filterChain.doFilter(request, response);
-
     }
 }
 

@@ -2,24 +2,17 @@ package ecampus.lp.lms.service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Base64;
-
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
+
 import java.sql.Date;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
+
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.Jwts.SIG;
-import io.jsonwebtoken.io.Decoders;
+
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
-import lombok.val;
 
 public class Token {
     @Getter
