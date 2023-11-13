@@ -1,5 +1,5 @@
 import axios from 'axios'
-import rC from './runtimeConfig';
+import rC from './runtimeConfig.js';
 
 let configParamName = "VUE_APP_API_BASE_URL";
 console.log("Initialize service with url:" + rC.runtimeConfig(configParamName));
@@ -17,8 +17,13 @@ export default {
 
     async login(loginRequest) { 
         let partialUrl = "/api/login"; 
-        const response = await apiClient.post(partialUrl, loginRequest,{ withCredentials: true }); 
-
+        console.log("AuthService", loginRequest);
+        const response = await apiClient.post(partialUrl, loginRequest, {
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        }); 
+        console.log("AuthService", response.data.token);
         apiClient.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
     },
 
