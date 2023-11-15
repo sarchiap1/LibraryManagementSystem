@@ -32,8 +32,9 @@ import TopNavbar from '../../../components/TopNavbar.vue';
 import Footer from '../../../components/Footer.vue';
 
 import { ref, toRaw } from "vue";
+import { useRouter } from 'vue-router';
 
-
+const router = useRouter();
 
 const user = ref({
       email: "",
@@ -42,6 +43,8 @@ const user = ref({
 
 function submit(){
   authService.login(toRaw(user.value));
+
+  router.push("/");
 }
 
 </script>

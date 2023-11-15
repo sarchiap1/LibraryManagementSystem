@@ -20,7 +20,8 @@ export default {
         console.log("AuthService", loginRequest);
         const response = await apiClient.post(partialUrl, loginRequest, {
             headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept':'*/*'
             }
         }); 
         console.log("AuthService", response.data.token);
