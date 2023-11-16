@@ -2,6 +2,7 @@ import {createRouter} from 'vue-router'
 import Homepage from './home/Home.vue';
 import {SignInComponent} from './user';
 import Cart from './cart/Cart.vue';
+import Admin from './admin/Admin.vue';
 
 const routes = [
   {
@@ -16,7 +17,18 @@ const routes = [
 
   {
     path: '/cart/',
-    component: Cart
+    component: Cart,
+    meta: {
+      requiresAuth: true, // protected route
+    }
+  },
+  {
+    path: '/admin/',
+    component: Admin,
+    meta: {
+      requiresAuth: true, // protected route
+      requiredClaims:['admin']
+    }
   },
 ]
 

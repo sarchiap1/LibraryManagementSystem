@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import ecampus.lp.lms.model.User;
 import ecampus.lp.lms.repository.IUserRepository;
-import io.jsonwebtoken.Jwts;
+
 import lombok.Getter;
 
 @Service

@@ -1,5 +1,8 @@
 <template>
   <TopNavbar />
+  <div>
+    <router-link to="/sign-in/">Sign-in</router-link>
+  </div>
 </template>
 <style></style>
 <script setup>

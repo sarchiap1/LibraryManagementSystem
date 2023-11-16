@@ -14,7 +14,6 @@ const apiClient = axios.create({
 })
 
 export default {
-
     async login(loginRequest) { 
         let partialUrl = "/api/login"; 
         console.log("AuthService", loginRequest);
@@ -26,6 +25,7 @@ export default {
         }); 
         console.log("AuthService", response.data.token);
         apiClient.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
+        return response.data;
     },
 
     async refresh(refreshRequest) { 

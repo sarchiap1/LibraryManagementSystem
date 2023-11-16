@@ -3,7 +3,7 @@
     <TopNavbar />
   
     <main class="form-signin">
-      <form @submit.prevent="submit">
+      <form  @submit.prevent="submit">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
   
         <div class="form-floating">
@@ -41,10 +41,16 @@ const user = ref({
       password: "",
     });
 
-function submit(){
-  authService.login(toRaw(user.value));
-
-  router.push("/");
+async function submit(){
+  try{
+    let authResponse = await authService.login(toRaw(user.value));
+      // Check response
+    router.push("/admin");
+  }
+  catch(error){
+    alert(error.message);
+    //console.log('Error:', error);
+  }
 }
 
 </script>

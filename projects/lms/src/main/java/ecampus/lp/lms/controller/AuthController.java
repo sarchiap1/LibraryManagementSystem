@@ -1,6 +1,5 @@
 package ecampus.lp.lms.controller;
 
-import ecampus.lp.lms.model.User;
 import ecampus.lp.lms.dto.*;
 
 import java.util.Objects;
