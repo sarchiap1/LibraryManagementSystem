@@ -12,7 +12,7 @@ public class Login {
     @Getter
     private final Token refreshToken;
 
-    private static final Long ACCESS_TOKEN_VALIDITY = 1L;
+    private static final Long ACCESS_TOKEN_VALIDITY = 10L;
     private static final Long REFRESH_TOKEN_VALIDITY = 1440L;
 
     private Login(Token accessToken, Token refreshToken){
